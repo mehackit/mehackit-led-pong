@@ -1,48 +1,62 @@
+import java.util.ArrayList;
+
 class Ball {
-  float x;
-  float y;
-  float speed;
-  float d;
-  float r;
+  private final int TRAIL_SIZE = 10;
+  private float x;
+  private float y;
+  private float speed;
+  private float d;
+  private float r;
+  private ArrayList<Float> oldXs;
+  private float h = 0;
+  private float s = 50;
 
-  float noise_x = 0;
-
-  Ball(float d, float speed, float x) {
+  public Ball(float d, float speed, float x) {
     this.x = x;
     this.y = height / 2.0;
     this.d = d;
-    this.r = d / 2.0 + 2;
+    this.r = d / 2;
     this.speed = speed;
+
+    oldXs = new ArrayList<Float>();
   }
 
-  void update(Player player) {
+  public Ball() {
+    this(20, 10, 0);
+  }
+
+  public void draw(Player player) {
     x += speed;
 
-    if (speed < 0 && player.checkCollision(x)) {
+    if (speed < 0 && player.checkCollision(x-r)) {
       speed = speed * -1;
-      accelerate();
-      counter++;
-      sendOscMessage("hit", counter);
-      println("player collision");
-    } else if (x < -r) {
-      println("game over " + x + " < 0");
+      speed = speed * 1.1;
+      _score++;
+      sendOscMessage("hit", _score);
+    } else if (x < 0) {
       changeState(State.GAME_OVER);
-    } else if (x > width) {
+    } else if (x+r > width) {
       speed = speed * -1;
-      println("ball change direction at other end");
-    } else {
-      //println("else...");
     }
-  }
 
-  void accelerate() {
-    speed = speed * 1.1;
-    println(speed);
-  }
-  void draw() {
+    oldXs.add(x);
+    if (oldXs.size() > TRAIL_SIZE) {
+      oldXs.remove(0);
+    }
+
+    h = (h + 1) % 100;
+    s = 50 + (s + 1) % 50;
+
+    int i = 0;
     noStroke();
-    fill(noise(noise_x) * 100.0, noise(noise_x + 100) * 100.0, 100);
-    noise_x += 0.01;
-    ellipse(x, y, r, r);
+    for (Float oldX : oldXs) {
+      if (i==TRAIL_SIZE-1) {
+        fill(0, 0, 100);
+      } else {
+        fill(h, s, 5 * i);
+      }
+      ellipse(oldX+random(-2, 2), y, d, d); 
+      i++;
+    }
   }
 }

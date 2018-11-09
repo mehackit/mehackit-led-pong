@@ -1,11 +1,15 @@
 class GameOnState implements GameState {
+	private Ball ball;
+	private Player player;
+
 	GameOnState() {
+		this.ball = new Ball();
+		this.player = new Player();
 	}
 
 	public void draw() {
-		player.update();
-		ball.update(player);
-		ball.draw();
+		ball.draw(player);
+		player.draw();
 	}
 
 	public void click() {

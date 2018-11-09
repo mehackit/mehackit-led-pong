@@ -1,16 +1,14 @@
 class GameStartState implements GameState {
+	Blink blink;
+
 	GameStartState() {
+		blink = new Blink(500);
 	}
 
 	public void draw() {
-		if (millis() - last_start_blink > start_blink_length) {
-			last_start_blink = millis();
-			draw_start_box = !draw_start_box;
-		}
-
-		if (draw_start_box) {
+		if (blink.draw()) {
 			fill(100, 0, 100);
-			rect(0, 0, PLAYER_SIZE, height);
+			rect(0, 0, _PLAYER_SIZE, height);
 		}
 	}
 
