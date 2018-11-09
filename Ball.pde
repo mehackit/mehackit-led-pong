@@ -22,8 +22,7 @@ class Ball {
       speed = speed * -1;
       accelerate();
       counter++;
-      OscMessage hit = new OscMessage("/hit ");
-      oscP5.send(hit, sonicPi); 
+      sendOscMessage("hit", counter);
       println("player collision");
     } else if (x < -r) {
       println("game over " + x + " < 0");

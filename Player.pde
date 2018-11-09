@@ -1,5 +1,3 @@
-import java.awt.event.KeyEvent;
-
 class Player {
   final int UP = 0;
   final int DOWN = 1;
@@ -21,14 +19,6 @@ class Player {
     this.x = 0;
     this.fade_x = 0;
     this.original_x = x;
-
-    if (x > width/2) {
-      this.rot = PI;
-      this.translate_y = height;
-    } else {
-      this.rot = 0;
-      this.translate_y = 0;
-    }
   }
 
   void update() {
@@ -39,12 +29,7 @@ class Player {
         state = DOWN;
       }
       noStroke();
-      greenFill();
-      pushMatrix();
-      translate(original_x, translate_y);
-      rotate(rot);
       rect(0, 0, x, height);
-      popMatrix();
       break;
 
       case DOWN:
@@ -54,16 +39,12 @@ class Player {
       }
       noStroke();
       greenFill();
-      pushMatrix();
-      translate(original_x, translate_y);
-      rotate(rot);
       rect(0, 0, x, height);
       fade_x += speed * 1.2;
       float red_x_1 = max(x - fade_x, 0);
       float red_x_2 = min(fade_x, x);
       redFill();
       rect(red_x_1, 0, red_x_2, height); 
-      popMatrix();
       break;
 
       default:
@@ -73,7 +54,6 @@ class Player {
 
   boolean checkCollision(float x) {
     if (state == UP && this.x > x) {
-      println("hit ball with bat");
       return true;
     } else {
       return false;

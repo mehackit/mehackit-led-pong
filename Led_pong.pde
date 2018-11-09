@@ -1,5 +1,5 @@
 Ball ball;
-Player player_1;
+Player player;
 OPC opc;
 
 import oscP5.*;
@@ -7,7 +7,6 @@ import netP5.*;
 
 OscP5 oscP5;
 NetAddress sonicPi;
-OscMessage osc_game_on = new OscMessage("/game_on");
 
 final int led_amt = 120;
 
@@ -31,6 +30,8 @@ long start_blink_length = 200;
 long last_end_blink = 0;
 boolean draw_end_box = true;
 long end_blink_length = 200;
+
+boolean debugMessages = true;
 
 void setup() {
   colorMode(HSB, 100);
@@ -93,16 +94,13 @@ void game_start() {
 }
 
 void game_on() {
-  player_1.update();
-  ball.update(player_1);
+  player.update();
+  ball.update(player);
   ball.draw();
 
   if (keyPressed && millis() - lastKeyPress > buttonIdle) {
-    OscMessage strike = new OscMessage("/strike ");
-    oscP5.send(strike, sonicPi); 
-
     lastKeyPress = millis();
-    player_1.hit();
+    player.hit();
   }
 }
 
@@ -127,31 +125,48 @@ void game_over() {
 void changeState(int s) {
   switch (s) {
     case IDLE:
-    osc_game_on.add(0);
-    oscP5.send(osc_game_on, sonicPi); 
+    sendOscMessage("state", IDLE);
     state = s;
     break;
     case GAME_START:
-    osc_game_on.add(0);
-    oscP5.send(osc_game_on, sonicPi); 
+    sendOscMessage("state", GAME_START);
     state = s;
     break;
     case GAME_ON:
-    osc_game_on.add(1);
-    oscP5.send(osc_game_on, sonicPi); 
-
+    sendOscMessage("state", GAME_ON);
     counter = 0;
     ball = new Ball(100, 10, 0);
-    player_1 = new Player(PLAYER_SIZE, 10, 0);
+    player = new Player(PLAYER_SIZE, 10, 0);
     state = s;
     break;
     case GAME_OVER:
-    osc_game_on.add(0);
-    oscP5.send(osc_game_on, sonicPi); 
-
+    sendOscMessage("state", GAME_OVER);
     println(counter);
     gameOverStarted = millis();
     state = s;
     break;
   }
+}
+
+// Functions for sending the OSC messages
+void sendOscMessage(String msg, float val) {
+  OscMessage toSend = new OscMessage("/" + msg);
+  toSend.add(val);
+  oscP5.send(toSend, sonicPi);
+  if (debugMessages) println(toSend); 
+}
+
+void sendOscMessage(String msg, int val) {
+  OscMessage toSend = new OscMessage("/" + msg);
+  toSend.add((int)val);
+  oscP5.send(toSend, sonicPi);
+  if (debugMessages) println(toSend); 
+}
+
+void sendOscDualMessage(String msg, float val1, float val2) {
+  OscMessage toSend = new OscMessage("/" + msg);
+  toSend.add(val1);
+  toSend.add(val2);
+  oscP5.send(toSend, sonicPi);
+  if (debugMessages) println(toSend); 
 }
