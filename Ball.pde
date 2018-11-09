@@ -26,7 +26,7 @@ class Ball {
       println("player collision");
     } else if (x < -r) {
       println("game over " + x + " < 0");
-      changeState(GAME_OVER);
+      changeState(State.GAME_OVER);
     } else if (x > width) {
       speed = speed * -1;
       println("ball change direction at other end");
