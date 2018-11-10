@@ -10,6 +10,7 @@ class Ball {
   private ArrayList<Float> oldXs;
   private float h = 0;
   private float s = 50;
+  private Obstacle obstacle;
 
   public Ball(float d, float speed, float x) {
     this.x = x;
@@ -19,6 +20,8 @@ class Ball {
     this.speed = speed;
 
     oldXs = new ArrayList<Float>();
+
+    obstacle = new Obstacle();
   }
 
   public Ball() {
@@ -26,17 +29,23 @@ class Ball {
   }
 
   public void draw(Player player) {
+    obstacle.draw();
     x += speed;
 
     if (speed < 0 && player.checkCollision(x-r)) {
       speed = speed * -1;
-      speed = speed * 1.1;
+      speed = _score < 10 ? speed * 1.1 : speed * 1.02;
       _score++;
       sendOscMessage("hit", _score);
     } else if (x < 0) {
       changeState(State.GAME_OVER);
     } else if (x+r > width) {
       speed = speed * -1;
+    }
+
+    if (obstacle.checkCollision(x, r)) {
+      speed = speed * -1;
+      obstacle.explode();
     }
 
     oldXs.add(x);
@@ -52,8 +61,10 @@ class Ball {
     for (Float oldX : oldXs) {
       if (i==TRAIL_SIZE-1) {
         fill(0, 0, 100);
+      } else if (i > TRAIL_SIZE - 3) {
+        fill(h, s, 100);
       } else {
-        fill(h, s, 5 * i);
+        fill(h, s, 6 * i);
       }
       ellipse(oldX+random(-2, 2), y, d, d); 
       i++;

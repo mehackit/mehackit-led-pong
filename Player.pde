@@ -15,7 +15,7 @@ class Player {
   }
 
   Player() {
-    this(70, 10, 0);
+    this(_PLAYER_SIZE, 10, 0);
   }
 
   void draw() {
@@ -55,7 +55,7 @@ class Player {
   }
 
   void greenFill() {
-    fill(35, 100, 60);
+    fill(35, 100, 100);
   }
 
   void hit() {

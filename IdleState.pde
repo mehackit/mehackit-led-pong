@@ -1,12 +1,17 @@
 class IdleState implements GameState{
 
+	int start = 0;
 	IdleState() {
 	}
 
 	public void draw() {
-		noStroke();
-		fill(noise(frameCount/30.0) * 100.0, noise(frameCount/30.0 + 100) * 100.0, 100);
-		ellipse(noise(frameCount/100.0)*width, height/2, 30, 30);
+		float size = width / 100;
+		for (int i = 0; i < 99; i++) {
+			fill((start + i) % 100, 100, 100);
+			noStroke();
+			//rect(size * i, 0, size * i + size, height);
+		}
+		start = (start + 1) % 100;
 	}
 
 	public void click() {

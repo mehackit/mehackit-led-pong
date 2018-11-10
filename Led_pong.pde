@@ -8,7 +8,8 @@ private State state;
 
 private final int _LED_AMT = 120;
 public int _score = 0;
-private final int _PLAYER_SIZE = 70;
+private final int _PLAYER_SIZE = 50;
+private long lastKeyPress = 0;
 
 public void setup() {
   colorMode(HSB, 100);
@@ -35,17 +36,27 @@ public void draw() {
 }
 
 public void keyPressed() {
-  state.getObject().click();
+  long now = millis();
+  if (now - lastKeyPress > 300) {
+    lastKeyPress = now;
+    state.getObject().click();
+  }
 }
 
 public void changeState(State s) {
   state = s;
   sendOscMessage("state", state.getIndex());
+  lastKeyPress = millis();
 
   switch (state) {
     case GAME_START:
       State.GAME_ON.setObject(new GameOnState());
+      State.GAME_OVER.setObject(new GameOverState());
       _score = 0;
+      break;
+    case GAME_OVER:
+      GameOverState gs = (GameOverState) State.GAME_OVER.getObject();
+      gs.explode();
       break;
   }
 }
