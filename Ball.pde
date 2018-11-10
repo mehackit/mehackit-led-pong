@@ -33,14 +33,17 @@ class Ball {
     x += speed;
 
     if (speed < 0 && player.checkCollision(x-r)) {
+      println("bounce");
       speed = speed * -1;
       speed = _score < 10 ? speed * 1.1 : speed * 1.02;
       _score++;
       sendOscMessage("hit", _score);
     } else if (x < 0) {
+      println("game over");
       changeState(State.GAME_OVER);
     } else if (x+r > width) {
-      speed = speed * -1;
+      speed = -abs(speed);
+      println("change direction");
     }
 
     if (obstacle.checkCollision(x, r)) {

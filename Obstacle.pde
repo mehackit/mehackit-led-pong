@@ -18,8 +18,8 @@ class Obstacle {
 		switch (state) {
 			case OFF:
 			long now = millis();
-			if (now - lastSpawn > 5000 && _score > 1) {
-				if (random(100) > 100 - _score) {
+			if (now - lastSpawn > 500 && _score > 1) {
+				if (random(100) > 0 - _score) {
 					lastSpawn = now;
 					x = random(width / 2, width);
 					state = ON;
@@ -27,8 +27,10 @@ class Obstacle {
 			}
 			break;
 			case ON:
-			fill(100, 100, 100);
+			fill(100, 100, 60);
 			rect(x, 0, r, height);
+			fill(100, 100, 100);
+			rect(x+random(40), 0, 10, height);
 			break;
 			case EXPLODING:
 			state = OFF;
