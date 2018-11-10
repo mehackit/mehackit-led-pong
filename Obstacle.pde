@@ -28,7 +28,7 @@ class Obstacle {
 			break;
 			case ON:
 			fill(100, 100, 100);
-			ellipse(x, height/2, r, r);
+			rect(x, 0, r, height);
 			break;
 			case EXPLODING:
 			state = OFF;
@@ -38,7 +38,7 @@ class Obstacle {
 
 	public boolean checkCollision(float ballX, float ballR) {
 		if (state == ON ) {
-			if ((ballX + ballR > x - r && ballX - ballR < x + r) || (ballX - ballR < x + r && ballX + ballR > x - r)) {
+			if ((ballX > x  && ballX < x + r) || (ballX < x + r && ballX > x)) {
 				return true;
 			} else {
 				return false;
