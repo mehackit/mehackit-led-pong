@@ -12,6 +12,12 @@ class GameStartState implements GameState {
 			rect(0, 0, _PLAYER_SIZE, height);
 			fill(100, 0, 100);
 			rect(i, 0, 10, height);
+
+			if (i==0) {
+				println("osc message start line");
+				sendOscMessage("start_sweep", 1);
+			}
+
 			i += 1.3;
 			if (i > _PLAYER_SIZE ) {
 				i = 0;

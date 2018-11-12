@@ -18,11 +18,12 @@ class Obstacle {
 		switch (state) {
 			case OFF:
 			long now = millis();
-			if (now - lastSpawn > 500 && _score > 1) {
-				if (random(100) > 0 - _score) {
+			if (now - lastSpawn > 2000 && _score > 1) {
+				if (random(100) > 90 - _score) {
 					lastSpawn = now;
-					x = random(width / 2, width);
+					x = random(width / 2, width-r);
 					state = ON;
+					sendOscMessage("spawn", 0);
 				}
 			}
 			break;
@@ -41,6 +42,7 @@ class Obstacle {
 	public boolean checkCollision(float ballX, float ballR) {
 		if (state == ON ) {
 			if ((ballX > x  && ballX < x + r) || (ballX < x + r && ballX > x)) {
+				sendOscMessage("break", 0);
 				return true;
 			} else {
 				return false;

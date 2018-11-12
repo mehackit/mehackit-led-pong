@@ -58,6 +58,9 @@ public void changeState(State s) {
       GameOverState gs = (GameOverState) State.GAME_OVER.getObject();
       gs.explode();
       break;
+    case GAME_ON:
+      sendOscMessage("go", 1);
+      break;
   }
 }
 

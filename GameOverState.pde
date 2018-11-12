@@ -69,6 +69,7 @@ class GameOverState implements GameState {
 	public void explode() {
 		state = EXPLOSION;
 		gameOverStateStarted = millis();
+		sendOscMessage("explode", 0);
 	}
 
 	private void drawScore() {
@@ -80,12 +81,16 @@ class GameOverState implements GameState {
 			}
 
 			if (animateScore) {
+				if (animateScoreCounter < _score) {
+					sendOscMessage("score", (int) animateScoreCounter);
+				}
 				animateScoreCounter++;
 				if (animateScoreCounter >= _score) {
 					animateScoreCounter = _score;
 					if (_score > highscore) {
 						saveHighScore();
 						state = HIGH_SCORE;
+						sendOscMessage("highscore", 1);
 					}
 				}
 				animateScore = false;	
