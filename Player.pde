@@ -15,7 +15,7 @@ class Player {
   }
 
   Player() {
-    this(_PLAYER_SIZE, 10, 0);
+    this(_PLAYER_SIZE, 8, 0);
   }
 
   void draw() {

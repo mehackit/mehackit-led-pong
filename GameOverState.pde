@@ -49,13 +49,13 @@ class GameOverState implements GameState {
 			break;
 			case SCORE:
 			drawScore();
-			if (millis() - gameOverStateStarted > 20000) {
+			if (millis() - gameOverStateStarted > 30000) {
 				changeState(State.IDLE);
 			}
 			break;
 			case HIGH_SCORE:
 			drawHighScore();
-			if (millis() - gameOverStateStarted > 20000) {
+			if (millis() - gameOverStateStarted > 30000) {
 				changeState(State.IDLE);
 			}
 			break;

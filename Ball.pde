@@ -25,7 +25,7 @@ class Ball {
   }
 
   public Ball() {
-    this(20, 10, 0);
+    this(14, 10, 0);
   }
 
   public void draw(Player player) {
@@ -64,12 +64,15 @@ class Ball {
     for (Float oldX : oldXs) {
       if (i==TRAIL_SIZE-1) {
         fill(0, 0, 100);
+        ellipse(oldX+random(-2, 2), y, d, d); 
       } else if (i > TRAIL_SIZE - 3) {
         fill(h, s, 100);
+        ellipse(oldX+random(-2, 2), y, speed*2, speed*2); 
       } else {
         fill(h, s, 6 * i);
+        ellipse(oldX+random(-2, 2), y, speed*2, speed*2); 
       }
-      ellipse(oldX+random(-2, 2), y, d, d); 
+      
       i++;
     }
   }
