@@ -22,16 +22,22 @@ class GameOverState implements GameState {
 	private int[] hues = {6, 11, 22, 28};
 	private int highscore;
 
+	private String filepath;
+
 
 	GameOverState() {
 		blink = new Blink(200);
 		boolean explosion = false;
 		im = loadImage("fire.jpg");
 		y = height;
+		filepath = dataPath("") + "/highscore.txt";
 
-		String[] lines = loadStrings("/Users/otso/Dropbox (Aalto)/MediaLab/Neopixel pong/Led_pong/data/highscore.txt");
+		String[] lines = loadStrings(filepath);
 		if (lines == null) {
-			println("No highscore file");
+			println("No highscore file, let's create one");
+			PrintWriter output = createWriter(filepath); 
+			output.flush();
+			output.close();
 			highscore = 0;
 		} else if (lines.length < 1) {
 			println("Empty highscore file");
@@ -116,7 +122,7 @@ class GameOverState implements GameState {
 		println("Save new highscore");
 		String h = String.valueOf(_score);
 		String[] list = {h};
-		saveStrings("/Users/otso/Dropbox (Aalto)/MediaLab/Neopixel pong/Led_pong/data/highscore.txt", list);
+		saveStrings(filepath, list);
 	}
 
 	private void drawExplosion() {
