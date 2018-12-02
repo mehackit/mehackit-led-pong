@@ -28,7 +28,7 @@ class GameOverState implements GameState {
 	GameOverState() {
 		blink = new Blink(200);
 		boolean explosion = false;
-		im = loadImage("fire.jpg");
+		im = loadImage(dataPath("") + "/fire.jpg");
 		y = height;
 		filepath = dataPath("") + "/highscore.txt";
 
