@@ -2,6 +2,8 @@
 
 We heard that hyper casual gaming is the next big thing. What's more hyperly casual than smashing one of those old school arcade buttons? To spice up the oddly nice sensation of those arcade buttons we added some flasy LED effects. And some Sonic Pi noodling of course while at it. 
 
+
+
 ## Running everything pre-built
 
 You will need [Sonic Pi](https://sonic-pi.net/) and [Processing](http://processing.org/).
@@ -33,11 +35,11 @@ Open terminal and navigate to this directory. Then run the pre-built fcserver:
 
 ### Sonic Pi
 
-Open './Sonic Pi/Led pong.rb' on Sonic Pi (you'll need version >3 for OSC) and run it. You won't hear anything untill SOnic Pi receives OSC messages form the game.
+Open `./Sonic Pi/Led pong.rb` on Sonic Pi (you'll need version >3 for OSC) and run it. You won't hear anything untill Sonic Pi receives OSC messages form the game.
 
 ### Processing
 
-Open './bin/application.macosx' or '.bin/application.linux64' depending on your operating system.
+Open `./bin/application.macosx` or `.bin/application.linux64` depending on your operating system.
 
 ## Building things
 
@@ -50,6 +52,7 @@ Open Led_pong.pde on processing. Press run on select 'File > Export as applicati
 ### Fadecandy server
 
 (More info [here](https://github.com/scanlime/fadecandy/tree/master/server))
+
 ```
 cd fadecandy/server
 make submodules
@@ -58,11 +61,12 @@ make
 
 ### Sonic Pi
 
-Getting Sonic Pi 3 on ubuntu 18.04
+Getting Sonic Pi 3 on ubuntu 18.04:
+
 ```
 git clone git@github.com:samaaron/sonic-pi.git
 cd sonic-pi/app/gui/qt
 ./build-ubuntu-18-04
 ```
 
-If I remember correctly I also had to install qjackctl (´´´sudo apt-get install qjackctl´´´)
+If I remember correctly I also had to install qjackctl (`sudo apt-get install qjackctl`)
