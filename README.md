@@ -2,7 +2,7 @@
 
 We heard that hyper casual gaming is the next big thing. What's more hyperly casual than smashing one of those old school arcade buttons? To spice up the oddly nice sensation of those arcade buttons we added some flasy LED effects. And some Sonic Pi noodling of course while we're at it. 
 
-![](led pong.gif)
+![](./led_pong.gif)
 
 ## Running everything pre-built
 
@@ -25,7 +25,7 @@ You will need to:
 
 5V wall-wart for the led strip. Usb to computer for the FadeCandy board and usb to computer for a button if you're using an external button.
 
-![](architecture.png)
+![](./architecture.png)
 
 ### FadeCandy
 
