@@ -11,7 +11,7 @@ You will need [Sonic Pi](https://sonic-pi.net/) and [Processing](http://processi
 Clone this repo (and use a flag to get the fadecandy submodules):
 
 ```
-git clone --recurse-submodules https://github.com/xxx/xxx
+git clone --recurse-submodules https://github.com/mehackit/mehackit-led-pong.git
 ```
 
 You will need to:
